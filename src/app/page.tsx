@@ -2,8 +2,8 @@ import { DefaultInput } from '../components/input';
 
 export default function Home() {
   return (
-    <body className="w-full h-full bg-black">
-      <div className="flex justify-center items-center">
+    <body className="w-screen h-screen bg-black">
+      <div className="flex justify-center items-center h-screen">
         <div className="flex flex-col bg-white rounded-3xl max-sm:w-72 max-lg:w-80 w-96">
           <h1 className="max-sm:text-xl max-lg:text-2xl text-3xl font-bold mt-8 mb-8 text-center">
             LOGIN
