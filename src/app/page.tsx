@@ -23,8 +23,6 @@ export default function Home() {
       password,
     };
 
-    console.log(data);
-
     try {
       await axios.post('http://localhost:3005/user/login', data).then((res) => {
         console.log('resp:', res.data);
