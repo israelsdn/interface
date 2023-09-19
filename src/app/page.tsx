@@ -1,4 +1,5 @@
 'use client';
+require('dotenv').config();
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -26,9 +27,11 @@ export default function Home() {
       password,
     };
 
+    const url = process.env.NEXT_PUBLIC_LOGIN_API as string;
+
     try {
       await axios
-        .post('http://localhost:3005/user/login', data)
+        .post(url, data)
         .then((res) => {
           if (res.status == 200) {
             setApiResponse('Logado com sucesso!');

@@ -1,4 +1,5 @@
 'use client';
+require('dotenv').config();
 
 import { DefalultInput } from '@/components/DefaultInput';
 import Link from 'next/link';
@@ -40,9 +41,11 @@ export default function Register() {
       name,
     };
 
+    const url = process.env.NEXT_PUBLIC_REGISTER_API as string;
+
     try {
       await axios
-        .post('http://localhost:3005/user/register', data)
+        .post(url, data)
         .then((res) => {
           if (res.status == 201) {
             setApiResponse('Usuario criado com sucesso!');
