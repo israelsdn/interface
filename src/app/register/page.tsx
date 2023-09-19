@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import axios from 'axios';
 import { DefalultInput } from '@/components/DefaultInput';
+import Link from 'next/link';
+import { useState } from 'react';
+import axios from 'axios';
 
-export default function Home() {
+export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confPassword, setConfPassword] = useState('');
+  const [name, setName] = useState('');
   const [apiResponse, setApiResponse] = useState('');
 
   const emailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,20 +20,32 @@ export default function Home() {
     setPassword(event.target.value);
   };
 
+  const confPasswordInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setConfPassword(event.target.value);
+  };
+
+  const nameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const data = {
       email,
       password,
+      confPassword,
+      name,
     };
 
     try {
       await axios
-        .post('http://localhost:3005/user/login', data)
+        .post('http://localhost:3005/user/register', data)
         .then((res) => {
-          if (res.status == 200) {
-            setApiResponse('Logado com sucesso!');
+          if (res.status == 201) {
+            setApiResponse('Usuario criado com sucesso!');
           }
         })
         .catch((error) => {
@@ -39,8 +53,11 @@ export default function Home() {
             case 422:
               setApiResponse('Preencha todos os campos!');
               return;
-            case 401:
-              setApiResponse('Email ou senha invalidos!');
+            case 400:
+              setApiResponse('As senhas não coincidem!');
+              return;
+            case 409:
+              setApiResponse('Email já está em uso!');
               return;
           }
         });
@@ -55,8 +72,8 @@ export default function Home() {
         onSubmit={handleSubmit}
         className="flex flex-col bg-white rounded-3xl max-sm:w-72 max-lg:w-80 w-96"
       >
-        <h1 className="max-sm:text-xl max-lg:text-2xl text-3xl font-bold mt-8 mb-8 text-center">
-          LOGIN
+        <h1 className="max-sm:text-lg max-lg:text-xl text-2xl font-bold mt-8 mb-8 text-center">
+          CREATE YOUR ACCOUNT
         </h1>
 
         <div
@@ -69,27 +86,41 @@ export default function Home() {
 
         <DefalultInput
           type="text"
+          placeholder="Your email"
           value={email}
           onChange={emailInputChange}
-          placeholder="Email"
+        />
+
+        <DefalultInput
+          type="text"
+          placeholder="Your name"
+          value={name}
+          onChange={nameInputChange}
         />
 
         <DefalultInput
           type="password"
+          placeholder="Your password"
           value={password}
           onChange={passwordInputChange}
-          placeholder="Password"
+        />
+
+        <DefalultInput
+          type="password"
+          placeholder="Confirm your password"
+          value={confPassword}
+          onChange={confPasswordInputChange}
         />
 
         <input
-          type="submit"
-          value="SING-IN"
           className="max-sm:text-sm max-lg:text-base text-lg bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-xl w-3/5 mt-6 mb-8 mx-auto"
+          type="submit"
+          value="Register"
         />
 
         <p className="max-sm:text-xs max-lg:text-sm text-base text-[#09090B] ml-4 mb-10">
-          Don't have login?{' '}
-          <Link href="./register" className="text-blue-900 font-semibold">
+          Have an account?{' '}
+          <Link href="../" className="text-blue-900 font-semibold">
             Click here
           </Link>
         </p>
