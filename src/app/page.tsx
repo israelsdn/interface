@@ -1,5 +1,5 @@
 'use client';
-require('dotenv').config();
+import 'dotenv/config';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -56,10 +56,17 @@ export default function Home() {
   return (
     <>
       <header className="bg-[#121214] border-b border-gray-800">
-        <button className="text-white text-xs font-semibold">ENTRAR</button>
-        <button className="border border-purple-700 rounded-md py-2 px-4 my-4 text-white text-xs font-semibold hover:bg-purple-700 transition duration-300">
-          CRIAR CONTA
-        </button>
+        <div className="flex flex-row-reverse container space-x-7 space-x-reverse items-center">
+          <button className="border border-purple-700 rounded-md py-2 px-4 my-4 text-white text-xs font-semibold hover:bg-purple-700 transition duration-300">
+            CRIAR CONTA
+          </button>
+
+          <div className="flex items-center space-x-2">
+            <img src="/user.svg" className="w-4 h-4" />
+
+            <button className="text-white text-xs font-semibold">ENTRAR</button>
+          </div>
+        </div>
       </header>
 
       <main className="flex justify-center items-center min-h-screen w-scren bg-[#121214]">
