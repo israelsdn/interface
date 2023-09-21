@@ -35,6 +35,7 @@ export default function Home() {
         .then((res) => {
           if (res.status == 200) {
             setApiResponse('Logado com sucesso!');
+            console.log(res.data);
           }
         })
         .catch((error) => {
@@ -53,50 +54,59 @@ export default function Home() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen w-scren bg-black">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col bg-white rounded-3xl max-sm:w-72 max-lg:w-80 w-96"
-      >
-        <h1 className="max-sm:text-xl max-lg:text-2xl text-3xl font-bold mt-8 mb-8 text-center">
-          LOGIN
-        </h1>
+    <>
+      <header className="bg-[#121214] border-b border-gray-800">
+        <button className="text-white text-xs font-semibold">ENTRAR</button>
+        <button className="border border-purple-700 rounded-md py-2 px-4 my-4 text-white text-xs font-semibold hover:bg-purple-700 transition duration-300">
+          CRIAR CONTA
+        </button>
+      </header>
 
-        <div
-          className={` ${
-            apiResponse ? 'block' : 'hidden'
-          } bg-red-300 mx-a text-center mb-5 py-1 mx-6 rounded-md`}
+      <main className="flex justify-center items-center min-h-screen w-scren bg-[#121214]">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col bg-white rounded-3xl max-sm:w-72 max-lg:w-80 w-96"
         >
-          {apiResponse}
-        </div>
+          <h1 className="max-sm:text-xl max-lg:text-2xl text-3xl font-bold mt-8 mb-8 text-center">
+            LOGIN
+          </h1>
 
-        <DefalultInput
-          type="text"
-          value={email}
-          onChange={emailInputChange}
-          placeholder="Email"
-        />
+          <div
+            className={` ${
+              apiResponse ? 'block' : 'hidden'
+            } bg-red-300 mx-a text-center mb-5 py-1 mx-6 rounded-md`}
+          >
+            {apiResponse}
+          </div>
 
-        <DefalultInput
-          type="password"
-          value={password}
-          onChange={passwordInputChange}
-          placeholder="Password"
-        />
+          <DefalultInput
+            type="text"
+            value={email}
+            onChange={emailInputChange}
+            placeholder="Email"
+          />
 
-        <input
-          type="submit"
-          value="SING-IN"
-          className="max-sm:text-sm max-lg:text-base text-lg bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-xl w-3/5 mt-6 mb-8 mx-auto"
-        />
+          <DefalultInput
+            type="password"
+            value={password}
+            onChange={passwordInputChange}
+            placeholder="Password"
+          />
 
-        <p className="max-sm:text-xs max-lg:text-sm text-base text-[#09090B] ml-4 mb-10">
-          Don't have login?{' '}
-          <Link href="./register" className="text-blue-900 font-semibold">
-            Click here
-          </Link>
-        </p>
-      </form>
-    </div>
+          <input
+            type="submit"
+            value="SING-IN"
+            className="max-sm:text-sm max-lg:text-base text-lg bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-xl w-3/5 mt-6 mb-8 mx-auto"
+          />
+
+          <p className="max-sm:text-xs max-lg:text-sm text-base text-[#09090B] ml-4 mb-10">
+            Don't have login?{' '}
+            <Link href="./register" className="text-blue-900 font-semibold">
+              Click here
+            </Link>
+          </p>
+        </form>
+      </main>
+    </>
   );
 }

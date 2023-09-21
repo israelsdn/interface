@@ -70,64 +70,66 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen w-scren bg-black">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col bg-white rounded-3xl max-sm:w-72 max-lg:w-80 w-96"
-      >
-        <h1 className="max-sm:text-lg max-lg:text-xl text-2xl font-bold mt-8 mb-8 text-center">
-          CREATE YOUR ACCOUNT
-        </h1>
-
-        <div
-          className={` ${
-            apiResponse ? 'block' : 'hidden'
-          } bg-red-300 mx-a text-center mb-5 py-1 mx-6 rounded-md`}
+    <>
+      <main className="flex justify-center items-center min-h-screen w-scren bg-[#121214]">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col bg-white rounded-3xl max-sm:w-72 max-lg:w-80 w-96"
         >
-          {apiResponse}
-        </div>
+          <h1 className="max-sm:text-lg max-lg:text-xl text-2xl font-bold mt-8 mb-8 text-center">
+            CREATE YOUR ACCOUNT
+          </h1>
 
-        <DefalultInput
-          type="text"
-          placeholder="Your email"
-          value={email}
-          onChange={emailInputChange}
-        />
+          <div
+            className={` ${
+              apiResponse ? 'block' : 'hidden'
+            } bg-red-300 mx-a text-center mb-5 py-1 mx-6 rounded-md`}
+          >
+            {apiResponse}
+          </div>
 
-        <DefalultInput
-          type="text"
-          placeholder="Your name"
-          value={name}
-          onChange={nameInputChange}
-        />
+          <DefalultInput
+            type="text"
+            placeholder="Your email"
+            value={email}
+            onChange={emailInputChange}
+          />
 
-        <DefalultInput
-          type="password"
-          placeholder="Your password"
-          value={password}
-          onChange={passwordInputChange}
-        />
+          <DefalultInput
+            type="text"
+            placeholder="Your name"
+            value={name}
+            onChange={nameInputChange}
+          />
 
-        <DefalultInput
-          type="password"
-          placeholder="Confirm your password"
-          value={confPassword}
-          onChange={confPasswordInputChange}
-        />
+          <DefalultInput
+            type="password"
+            placeholder="Your password"
+            value={password}
+            onChange={passwordInputChange}
+          />
 
-        <input
-          className="max-sm:text-sm max-lg:text-base text-lg bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-xl w-3/5 mt-6 mb-8 mx-auto"
-          type="submit"
-          value="Register"
-        />
+          <DefalultInput
+            type="password"
+            placeholder="Confirm your password"
+            value={confPassword}
+            onChange={confPasswordInputChange}
+          />
 
-        <p className="max-sm:text-xs max-lg:text-sm text-base text-[#09090B] ml-4 mb-10">
-          Have an account?{' '}
-          <Link href="../" className="text-blue-900 font-semibold">
-            Click here
-          </Link>
-        </p>
-      </form>
-    </div>
+          <input
+            className="max-sm:text-sm max-lg:text-base text-lg bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-xl w-3/5 mt-6 mb-8 mx-auto"
+            type="submit"
+            value="Register"
+          />
+
+          <p className="max-sm:text-xs max-lg:text-sm text-base text-[#09090B] ml-4 mb-10">
+            Have an account?{' '}
+            <Link href="../" className="text-blue-900 font-semibold">
+              Click here
+            </Link>
+          </p>
+        </form>
+      </main>
+    </>
   );
 }
