@@ -71,7 +71,7 @@ export default function Register() {
 
   return (
     <>
-      <main className="flex justify-center items-center min-h-screen w-scren bg-[#121214]">
+      <main className="flex justify-center items-center min-h-screen w-screen bg-[#121214]">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col bg-white rounded-3xl max-sm:w-72 max-lg:w-80 w-96"

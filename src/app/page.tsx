@@ -57,14 +57,16 @@ export default function Home() {
     <>
       <header className="bg-[#121214] border-b border-gray-800">
         <div className="flex flex-row-reverse container space-x-7 space-x-reverse items-center">
-          <button className="border border-purple-700 rounded-md py-2 px-4 my-4 text-white text-xs font-semibold hover:bg-purple-700 transition duration-300">
+          <button className="max-sm:text-[10px] max-sm:mr-5 text-xs font-semibold border border-purple-700 rounded-md py-2 px-4 my-4 text-white hover:bg-purple-700 transition duration-300">
             CRIAR CONTA
           </button>
 
           <div className="flex items-center space-x-2">
-            <img src="/user.svg" className="w-4 h-4" />
+            <img src="/user.svg" className="max-sm:w-5 max-sm:h-5 w-4 h-4" />
 
-            <button className="text-white text-xs font-semibold">ENTRAR</button>
+            <button className="max-sm:hidden text-xs text-white font-semibold">
+              ENTRAR
+            </button>
           </div>
         </div>
       </header>
