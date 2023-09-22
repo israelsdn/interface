@@ -10,6 +10,7 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [apiResponse, setApiResponse] = useState('');
+  const [apiLoading, setApiLoading] = useState(false);
 
   const emailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -21,6 +22,8 @@ export default function Home() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setApiLoading(true);
 
     const data = {
       email,
@@ -35,6 +38,7 @@ export default function Home() {
         .then((res) => {
           if (res.status == 200) {
             setApiResponse('Logado com sucesso!');
+            setApiLoading(false);
             console.log(res.data);
           }
         })
@@ -42,14 +46,17 @@ export default function Home() {
           switch (error.response.status) {
             case 422:
               setApiResponse('Preencha todos os campos!');
+              setApiLoading(false);
               return;
             case 401:
               setApiResponse('Email ou senha invalidos!');
+              setApiLoading(false);
               return;
           }
         });
     } catch (error) {
       setApiResponse('Ocorreu um erro inesperado');
+      setApiLoading(false);
     }
   };
 
@@ -105,12 +112,15 @@ export default function Home() {
           <input
             type="submit"
             value="SING-IN"
-            className="max-sm:text-sm max-lg:text-base text-lg bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-xl w-3/5 mt-6 mb-8 mx-auto"
+            className={`${
+              apiLoading ? 'opacity-50 cursor-not-allowed' : ''
+            } max-sm:text-sm max-lg:text-base text-lg bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-xl w-3/5 mt-6 mb-8 mx-auto`}
+            disabled={apiLoading}
           />
 
           <p className="max-sm:text-xs max-lg:text-sm text-base text-[#09090B] ml-4 mb-10">
             Don't have login?{' '}
-            <Link href="./register" className="text-blue-900 font-semibold">
+            <Link href="/register" className="text-blue-900 font-semibold">
               Click here
             </Link>
           </p>
