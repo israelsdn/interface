@@ -1,7 +1,7 @@
 'use client';
 import 'dotenv/config';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { DefalultInput } from '@/components/DefaultInput';
@@ -11,6 +11,34 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const [apiResponse, setApiResponse] = useState('');
   const [apiLoading, setApiLoading] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    async function tokenVerify() {
+      const url = process.env.NEXT_PUBLIC_VERIFY_TOKEN as string;
+
+      const data = {
+        token: token,
+      };
+
+      try {
+        await axios
+          .post(url, data)
+          .then((res) => {
+            console.log(res.data);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          })
+          .catch(() => {
+            localStorage.clear();
+          });
+      } catch (e) {}
+    }
+
+    if (token) {
+      tokenVerify();
+    }
+  }, []);
 
   const emailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -38,8 +66,16 @@ export default function Home() {
         .then((res) => {
           if (res.status == 200) {
             setApiResponse('Logado com sucesso!');
+
+            localStorage.setItem('token', res.data);
+
+            const token = localStorage.getItem('token');
+
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+            console.log(axios.defaults.headers.common['Authorization']);
+
             setApiLoading(false);
-            console.log(res.data);
           }
         })
         .catch((error) => {
