@@ -1,4 +1,4 @@
-export function DefalultInput({
+export default function DefaultInput({
   placeholder,
   type,
   value,

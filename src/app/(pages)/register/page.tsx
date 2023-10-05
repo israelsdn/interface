@@ -1,18 +1,33 @@
 'use client';
 
-import { DefalultInput } from '@/components/DefaultInput';
-import { SubmitInput } from '@/components/SubmitInput';
+import DefalultInput from '@/components/DefaultInput';
+import SubmitInput from '@/components/SubmitInput';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import tokenVerify from '@/utils/tokenVerify';
 
 export default function Register() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confPassword, setConfPassword] = useState('');
   const [name, setName] = useState('');
   const [apiResponse, setApiResponse] = useState('');
   const [apiLoading, setApiLoading] = useState(false);
+
+  useEffect(() => {
+    async function authetication() {
+      const auth = await tokenVerify();
+
+      if (auth) {
+        router.push('/home');
+      }
+    }
+
+    authetication();
+  }, []);
 
   const emailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -53,6 +68,7 @@ export default function Register() {
           if (res.status == 201) {
             setApiResponse('Usuario criado com sucesso!');
             setApiLoading(false);
+            router.push('/login');
           }
         })
         .catch((error) => {

@@ -1,16 +1,31 @@
 'use client';
 
-import { DefalultInput } from '@/components/DefaultInput';
-import { SubmitInput } from '@/components/SubmitInput';
+import DefaultInput from '@/components/DefaultInput';
+import SubmitInput from '@/components/SubmitInput';
 import axios from 'axios';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import tokenVerify from '@/utils/tokenVerify';
 
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [apiResponse, setApiResponse] = useState('');
   const [apiLoading, setApiLoading] = useState(false);
+
+  useEffect(() => {
+    async function authetication() {
+      const auth = await tokenVerify();
+
+      if (auth) {
+        router.push('/home');
+      }
+    }
+
+    authetication();
+  }, []);
 
   const emailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -48,6 +63,8 @@ export default function Login() {
             console.log(axios.defaults.headers.common['Authorization']);
 
             setApiLoading(false);
+
+            router.push('/home');
           }
         })
         .catch((error) => {
@@ -87,14 +104,14 @@ export default function Login() {
             {apiResponse}
           </div>
 
-          <DefalultInput
+          <DefaultInput
             type="text"
             value={email}
             onChange={emailInputChange}
             placeholder="Email"
           />
 
-          <DefalultInput
+          <DefaultInput
             type="password"
             value={password}
             onChange={passwordInputChange}

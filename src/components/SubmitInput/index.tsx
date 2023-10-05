@@ -1,4 +1,4 @@
-export function SubmitInput({
+export default function SubmitInput({
   value,
   funName,
 }: {
