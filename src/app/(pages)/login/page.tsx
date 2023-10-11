@@ -19,7 +19,7 @@ export default function Login() {
     async function authetication() {
       const auth = await tokenVerify();
 
-      if (auth) {
+      if (auth.status) {
         router.push('/home');
       }
     }
@@ -52,19 +52,13 @@ export default function Login() {
         .post(url, data)
         .then((res) => {
           if (res.status == 200) {
-            setApiResponse('Logado com sucesso!');
-
-            localStorage.setItem('token', res.data);
-
-            const token = localStorage.getItem('token');
-
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-            console.log(axios.defaults.headers.common['Authorization']);
-
-            setApiLoading(false);
+            const token = res.data;
+            localStorage.setItem('token', token);
+            tokenVerify();
 
             router.push('/home');
+            setApiLoading(false);
+            console.log(axios.defaults.headers.common.Authorization);
           }
         })
         .catch((error) => {

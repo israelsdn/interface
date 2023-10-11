@@ -13,7 +13,7 @@ export default function Home() {
     async function authetication() {
       const auth = await tokenVerify();
 
-      if (auth) {
+      if (auth.status) {
         router.push('/home');
       }
     }

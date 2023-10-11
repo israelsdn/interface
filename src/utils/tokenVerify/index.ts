@@ -1,27 +1,32 @@
+import { data } from 'autoprefixer';
 import axios from 'axios';
 
 export default async function tokenVerify() {
-  let status = false;
   const token = localStorage.getItem('token');
+  axios.defaults.headers.common.Authorization = token;
+
   const url = process.env.NEXT_PUBLIC_VERIFY_TOKEN as string;
-  const data = { token: token };
+  let response = {
+    status: false,
+    data,
+  };
 
   if (token) {
     try {
       await axios
-        .post(url, data)
-        .then(() => {
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          console.log('valido');
-          status = true;
+        .post(url)
+        .then((res) => {
+          response.status = true;
+          response.data = res.data;
         })
         .catch(() => {
           localStorage.clear();
-          console.log('invalido');
-          status = false;
+          axios.defaults.headers.common.Authorization = undefined;
+
+          response.status = false;
         });
     } catch (error) {}
   }
 
-  return status;
+  return response;
 }
