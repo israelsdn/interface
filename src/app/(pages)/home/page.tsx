@@ -1,9 +1,10 @@
 'use client';
 
+import AccountModal from '@/components/AccountModal';
 import DefaultHeader from '@/components/DefaultHeader';
 import tokenVerify from '@/utils/tokenVerify';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function home() {
   const router = useRouter();
@@ -32,67 +33,49 @@ export default function home() {
     router.push('/');
   }
 
-  function openMenu() {
-    if (menuStatus) {
-      setMenuStatus(false);
-    } else {
-      setMenuStatus(true);
-    }
-  }
+  const openMenu = () => setMenuStatus(true);
+  const closeMenu = () => setMenuStatus(false);
 
   return (
-    <>
+    <main className="min-h-screen w-scren bg-[#121214]">
       <DefaultHeader>
-        <div className="flex flex-row-reverse container space-x-7 space-x-reverse items-center">
+        <div className=" flex flex-row-reverse container space-x-7 space-x-reverse items-center">
           <button
-            onClick={openMenu}
-            className="max-sm:w-12 max-sm:h-12 max-lg:w-14 max-lg:h-14 w-16 h-16 bg-purple-700 rounded-full flex items-center justify-center border-4 border-gray-700 focus:outline-none focus:ring focus:ring-blue-300"
+            onMouseEnter={openMenu}
+            onMouseLeave={closeMenu}
+            className="max-sm:mx-4 max-sm:w-12 max-sm:h-12 max-lg:w-14 max-lg:h-14 w-16 h-16 bg-purple-700 rounded-full flex items-center justify-center border-4 border-gray-700 "
           >
             <span className="text-2xl font-medium text-white">
               {userName[0]}
             </span>
           </button>
         </div>
-      </DefaultHeader>
 
-      <main className="flex min-h-screen w-scren bg-[#121214]">
-        <div
-          className={` ${
-            menuStatus ? 'block' : 'hidden'
-          } flex flex-row-reverse container space-x-reverse`}
-        >
-          <div className="h-min w-min mt-2 rounded-md bg-gray-700 text-white">
-            <div
-              role="menu"
-              aria-orientation="vertical"
-              aria-labelledby="options-menu"
+        <div className={`${menuStatus ? 'block' : 'hidden'} h-fit w-fit`}>
+          <div
+            className="mt-2 rounded-md bg-gray-700 text-white"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <a
+              href=""
+              className="max-sm:text-xs  block px-4 py-2 text-white hover:bg-gray-900 rounded-md"
+              role="menuitem"
             >
-              <a
-                href=""
-                className="block px-4 py-2 text-white hover:bg-gray-900 "
-                role="menuitem"
-              >
-                Editar Perfil
-              </a>
-              <a
-                href=""
-                className="block px-4 py-2 text-white hover:bg-gray-900"
-                role="menuitem"
-              >
-                Configurações
-              </a>
-              <a
-                href=""
-                onClick={logOut}
-                className="block px-4 py-2 text-white hover:bg-gray-900"
-                role="menuitem"
-              >
-                Log Out
-              </a>
-            </div>
+              Editar Perfil
+            </a>
+            <a
+              href=""
+              onClick={logOut}
+              className="max-sm:text-xs block px-4 py-2 text-white hover:bg-gray-900 rounded-md"
+              role="menuitem"
+            >
+              Sair
+            </a>
           </div>
         </div>
-      </main>
-    </>
+      </DefaultHeader>
+    </main>
   );
 }

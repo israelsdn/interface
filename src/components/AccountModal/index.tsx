@@ -1,30 +1,27 @@
 'use client';
 
-import { useState } from 'react';
 import Modal from 'react-modal';
 
 export default function AccountModal({
   children,
+  close,
+  open,
   className,
+  style,
 }: {
   children?: any;
-  className?: string;
+  close: any;
+  open: any;
+  className: string;
+  style?: any;
 }) {
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
   return (
     <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
+      isOpen={open}
+      onRequestClose={close}
       className={className}
+      overlayClassName="fixed inset-0 bg-transparent"
+      style={style}
     >
       {children}
     </Modal>

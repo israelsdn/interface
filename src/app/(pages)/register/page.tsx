@@ -101,7 +101,7 @@ export default function Register() {
           className="flex flex-col bg-white rounded-3xl max-sm:w-72 max-lg:w-80 w-96"
         >
           <h1 className="max-sm:text-lg max-lg:text-xl text-2xl font-bold mt-8 mb-8 text-center">
-            CREATE YOUR ACCOUNT
+            CRIE SUA CONTA
           </h1>
 
           <div
@@ -114,38 +114,38 @@ export default function Register() {
 
           <DefalultInput
             type="text"
-            placeholder="Your email"
+            placeholder="Digite seu email"
             value={email}
             onChange={emailInputChange}
           />
 
           <DefalultInput
             type="text"
-            placeholder="Your name"
+            placeholder="Digite seu nome"
             value={name}
             onChange={nameInputChange}
           />
 
           <DefalultInput
             type="password"
-            placeholder="Your password"
+            placeholder="Digite sua senha"
             value={password}
             onChange={passwordInputChange}
           />
 
           <DefalultInput
             type="password"
-            placeholder="Confirm your password"
+            placeholder="Confirme sua senha"
             value={confPassword}
             onChange={confPasswordInputChange}
           />
 
-          <SubmitInput value="REGISTER" funName={apiLoading} />
+          <SubmitInput value="REGISTRAR-SE" funName={apiLoading} />
 
           <p className="max-sm:text-xs max-lg:text-sm text-base text-[#09090B] ml-4 mb-10">
-            Have an account?{' '}
+            Ja tem conta?{' '}
             <Link href="/login" className="text-blue-900 font-semibold">
-              Click here
+              Clique aqui
             </Link>
           </p>
         </form>

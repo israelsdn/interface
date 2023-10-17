@@ -109,15 +109,15 @@ export default function Login() {
             type="password"
             value={password}
             onChange={passwordInputChange}
-            placeholder="Password"
+            placeholder="Senha"
           />
 
-          <SubmitInput value="SING-IN" funName={apiLoading} />
+          <SubmitInput value="ENTRAR" funName={apiLoading} />
 
           <p className="max-sm:text-xs max-lg:text-sm text-base text-[#09090B] ml-4 mb-10">
-            Don't have login?{' '}
+            Não tem conta?{' '}
             <Link href="/register" className="text-blue-900 font-semibold">
-              Click here
+              Clique aqui
             </Link>
           </p>
         </form>
