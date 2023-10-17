@@ -28,10 +28,10 @@ export default function home() {
     authetication();
   }, []);
 
-  function logOut() {
+  const logOut = () => {
     localStorage.clear();
     router.push('/');
-  }
+  };
 
   const openMenu = () => setMenuStatus(true);
   const closeMenu = () => setMenuStatus(false);
@@ -41,8 +41,7 @@ export default function home() {
       <DefaultHeader>
         <div className=" flex flex-row-reverse container space-x-7 space-x-reverse items-center">
           <button
-            onMouseEnter={openMenu}
-            onMouseLeave={closeMenu}
+            onClick={openMenu}
             className="max-sm:mx-4 max-sm:w-12 max-sm:h-12 max-lg:w-14 max-lg:h-14 w-16 h-16 bg-purple-700 rounded-full flex items-center justify-center border-4 border-gray-700 "
           >
             <span className="text-2xl font-medium text-white">
@@ -51,7 +50,10 @@ export default function home() {
           </button>
         </div>
 
-        <div className={`${menuStatus ? 'block' : 'hidden'} h-fit w-fit`}>
+        <div
+          onMouseLeave={closeMenu}
+          className={`${menuStatus ? 'block' : 'hidden'} h-fit w-fit`}
+        >
           <div
             className="mt-2 rounded-md bg-gray-700 text-white"
             role="menu"
